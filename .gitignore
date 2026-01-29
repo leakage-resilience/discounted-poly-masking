@@ -21,3 +21,4 @@ c_timing
 **/make_run_log.txt
 */_pycache_/*
 .DS_Store
+!requirements.txt
