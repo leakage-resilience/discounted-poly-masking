@@ -1,0 +1,212 @@
+# SPDX-License-Identifier: MIT
+# Copyright 2025-2026 Max Planck Institute for Security and Privacy (MPI-SP), University of Luebeck
+import sys
+load("../sage_scripts/poly_masking_lib.sage") # load all relevant functions from poly masking lib
+
+
+# Parse parameters from the command line.
+if len(sys.argv) != 4:
+    print("Usage: sage generate_c_variables.sage <degree> <faults> <num_secrets>")
+    sys.exit(1)
+degree = int(sys.argv[1])
+faults = int(sys.argv[2])
+num_secrets_per_encoding = int(sys.argv[3])
+
+print(f"Generating C variables for degree={degree}, faults={faults}, num_secrets={num_secrets_per_encoding}...")
+
+# Define the finite field GF(2^8) using the AES irreducible polynomial
+F = GF(2^8, name='a', modulus=x^8 + x^4 + x^3 + x + 1)
+# Get the primitive element of the field (the generator)
+g = F.fetch_int(3)
+
+if num_secrets_per_encoding > 1 and num_secrets_per_encoding > floor(degree/2):
+    raise ValueError(f"Number of secrets encoded per pack num_secrets={num_secrets_per_encoding} must be at most floor(degree/2)={floor(degree/2)} (degree={degree}) for the LaOla SplitRed.")
+
+### Generate the support points, matrices and permutation map for the polynomial masked AES S-Box.
+
+## 1. Generate the support points:
+# uncomment line below to test that all sets in GF(2^8) are stable under the Frobenius automorphism.
+# test_all_sets_in_gf256(F)
+num_shares = degree + faults + 1  # number of support points
+# two disjoint sets of support points are needed
+# each set must be congruent under squaring
+# k supports are needed for the secrets, denoted secrets_supports, however, for the matrices we need d+1 support points out of which only k are used.
+# n supports are needed for the shares, denoted shares_supports
+secrets_supports, shares_supports = sample_support_points_for_secrets_and_shares(F, num_secrets_per_encoding, num_shares)
+if len(secrets_supports) != num_secrets_per_encoding:
+    raise AssertionError(f"unexpected number of secrets_supports: {secrets_supports}")
+if len(shares_supports) != num_shares:
+    raise AssertionError(f"unexpected number of shares_supports: {shares_supports}")
+test_frobenius_stability(secrets_supports)
+test_frobenius_stability(shares_supports)
+
+## 2. Generate the permutation map for the Frobenius automorphism.
+secrets_permutation_map = generate_permutation_map(secrets_supports)
+shares_permutation_map = generate_permutation_map(shares_supports)
+
+print(f"supports for k={num_secrets_per_encoding} secrets: {secrets_supports}")
+print(f"supports for n={num_shares} shares: {shares_supports}")
+
+## 3. Generate the Vandermonde matrix and its inverse for end/decoding secrets to shares, respectively vice-versa.
+V, V_inv = generate_Vs(F, shares_supports, num_shares)
+print(f"Vandermonde for support points of shares V =\n{V}")
+print(f"Inverse Vandermonde for support points of shares V_inv =\n{V_inv}")
+if V * V_inv != matrix.identity(num_shares):
+    raise AssertionError("Generated Vandermondes are not inverse of each other.")
+
+M_enc = generate_M_enc(F, secrets_supports, shares_supports, num_shares, num_secrets_per_encoding, degree)
+print(f"M_enc for encoding {num_secrets_per_encoding} secrets in {num_shares} shares =\n{M_enc}")
+M_dec = generate_M_dec(F, secrets_supports, shares_supports, num_shares, num_secrets_per_encoding, degree)
+print(f"M_dec for decoding {num_secrets_per_encoding} secrets from {num_shares} shares =\n{M_dec}")
+if M_enc is None:
+    raise AssertionError("Failed to compute M_enc.")
+if M_dec is None:
+    raise AssertionError("Failed to compute M_dec.")
+
+
+
+# Since we need all A_tilde matrices for the different degrees, we generate them all here and save them as a 3D array later.
+A_tilde = []
+for d in range(1, degree + 1):
+    M_enc_d = generate_M_enc(F, secrets_supports, shares_supports, num_shares, num_secrets_per_encoding, d)
+    A_tilde_d = generate_A_tilde(F, M_enc_d, num_secrets_per_encoding, d)
+    
+    # if A_tilde is smaller than degree we need to pad it with zeros to ensure correct dimensions
+    needed_columns = degree - d
+    num_rows = A_tilde_d.nrows()
+    if needed_columns > 0:
+        pad = zero_matrix(F, num_rows, needed_columns)
+        A_tilde_d = A_tilde_d.augment(pad)
+
+    A_tilde.append(A_tilde_d)
+    print(f"A_tilde_d is {A_tilde_d} for degree {d}")
+    print(f"Dimensions of A_tilde_d is {A_tilde_d.dimensions()}")
+
+lambda_hat = generate_lambda_hat_shamir_deg_red(V, V_inv, floor(degree/2))
+
+filename=f"src/poly_masking_parameters_d{degree}e{faults}k{num_secrets_per_encoding}.c"
+## Save the inverse matrix as C code.
+print("Saving to file...")
+
+with open(filename, 'w') as f:
+    f.write("// SPDX-License-Identifier: MIT\n")
+    f.write("// Copyright 2025-2026 Max Planck Institute for Security and Privacy (MPI-SP), University of Luebeck\n")
+    f.write("#include \"../src/poly_masking_parameters.h\"\n")
+    f.write("#include <stdint.h>\n")
+
+    f.write(f"__attribute__((section(\".data\"))) uint8_t secrets_supports[{num_secrets_per_encoding}] = {{")
+    alpha_str = ", ".join(str(s.integer_representation()) for s in secrets_supports)
+    f.write(alpha_str)
+    f.write("};\n")
+
+    f.write(f"__attribute__((section(\".data\"))) uint8_t shares_supports[{num_shares}] = {{")
+    alpha_str = ", ".join(str(s.integer_representation()) for s in shares_supports)
+    f.write(alpha_str)
+    f.write("};\n")
+
+    f.write("// Permutation map for shares squaring in GF(2^8)\n")
+    f.write(f"__attribute__((section(\".data\"))) uint8_t shares_permutation_map[{num_shares}] = {{")
+    f.write(", ".join(str(p) for p in shares_permutation_map))
+    f.write("};\n")
+
+    f.write("// Permutation map for secrets squaring in GF(2^8)\n")
+    f.write(f"__attribute__((section(\".data\"))) uint8_t secrets_permutation_map[{num_secrets_per_encoding}] = {{")
+    f.write(", ".join(str(p) for p in secrets_permutation_map))
+    f.write("};\n")
+
+    f.write("// Vandermonde matrix in GF(2^8)\n")
+    f.write(f"__attribute__((section(\".data\"))) uint8_t V[{num_shares}][{num_shares}] = {{\n")
+    for i in range(num_shares):
+        f.write("    {")
+        for j in range(num_shares):
+            if j > 0 and j < num_shares:
+                f.write(", ")
+            f.write(str((V[i][j]).integer_representation()))
+        f.write("}")
+        if i >= 0 and i < num_shares-1:
+            f.write(",\n")
+        else:
+            f.write("\n")        
+    f.write("};\n")
+
+    f.write("// Inverse Vandermonde matrix in GF(2^8)\n")
+    f.write(f"__attribute__((section(\".data\"))) uint8_t V_inv[{num_shares}][{num_shares}] = {{\n")
+    for i in range(num_shares):
+        f.write("    {")
+        for j in range(num_shares):
+            if j > 0 and j < num_shares:
+                f.write(", ")
+            f.write(str((V_inv[i][j]).integer_representation()))
+        f.write("}")
+        if i >= 0 and i < num_shares-1:
+            f.write(",\n")
+        else:
+            f.write("\n")        
+    f.write("};\n")
+
+    f.write(f"__attribute__((section(\".data\"))) uint8_t M_enc[{num_shares-(degree+1-num_secrets_per_encoding)}][{degree+1}] = {{\n")
+    for i in range(num_shares-(degree+1-num_secrets_per_encoding)):
+        f.write("    {")
+        for j in range(degree+1):
+            if j > 0 and j < degree + 1:
+                f.write(", ")
+            f.write(str((M_enc[i][j]).integer_representation()))
+        f.write("}")
+        if i >= 0 and i < num_shares-(degree+1-num_secrets_per_encoding)-1:
+            f.write(",\n")
+        else:
+            f.write("\n")        
+    f.write("};\n")
+
+    f.write(f"__attribute__((section(\".data\"))) uint8_t M_dec[{num_secrets_per_encoding}][{num_shares}] = {{\n")
+    for i in range(num_secrets_per_encoding):
+        f.write("    {")
+        for j in range(num_shares):
+            if j > 0 and j < num_shares:
+                f.write(", ")
+            f.write(str((M_dec[i][j]).integer_representation()))
+        f.write("}")
+        if i >= 0 and i < num_secrets_per_encoding - 1:
+            f.write(",\n")
+        else:
+            f.write("\n")        
+    f.write("};\n")
+    
+
+    f.write(f"__attribute__((section(\".data\"))) uint8_t A_tilde[{degree}][{num_shares}][{degree+1-num_secrets_per_encoding}] = {{\n")
+    for i in range(len(A_tilde)):
+        f.write("    {\n")
+        for j in range(num_shares):
+            f.write("        {")
+            for k in range(degree+1-num_secrets_per_encoding):
+                if k > 0 and k < num_shares:
+                    f.write(", ")
+                f.write(str((A_tilde[i][j][k]).integer_representation()))
+            f.write("}")
+            if j >= 0 and j < num_shares-1:
+                f.write(",\n")
+            else:
+                f.write("\n")
+        f.write("    }")
+        if i >= 0 and i < len(A_tilde) - 1:
+            f.write(",\n")
+        else:
+            f.write("\n")
+    f.write("};\n")
+    
+    f.write(f"__attribute__((section(\".data\"))) uint8_t lambda_hat[{num_shares}][{num_shares}] = {{\n")
+    for i in range(num_shares):
+        f.write("    {")
+        for j in range(num_shares):
+            if j > 0 and j < num_shares:
+                f.write(", ")
+            f.write(str(lambda_hat[i][j].integer_representation()))
+        f.write("}")
+        if i >= 0 and i < num_shares-1:
+            f.write(",\n")
+        else:
+            f.write("\n")
+    f.write("};\n")
+    
+    
+    

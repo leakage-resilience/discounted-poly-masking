@@ -1,0 +1,300 @@
+Analysis for d=1, e=1, s=1
+
+Overall Fault Summary for d=1, e=1, s=1:
+  Detected:                 83190169 (83.2%)
+  Undetected:               16809831
+    Ineffective (undetected): 16795446 (16.8%)
+    Effective (undetected):   14385 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=1, e=1, s=2
+
+Overall Fault Summary for d=1, e=1, s=2:
+  Detected:                 96921865 (96.9%)
+  Undetected:               3078135
+    Ineffective (undetected): 2884668 (2.9%)
+    Effective (undetected):   193467 (0.2%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=1, e=1, s=3
+
+Overall Fault Summary for d=1, e=1, s=3:
+  Detected:                 99148100 (99.1%)
+  Undetected:               851900
+    Ineffective (undetected): 550863 (0.6%)
+    Effective (undetected):   301037 (0.3%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=1, e=1, s=4
+
+Overall Fault Summary for d=1, e=1, s=4:
+  Detected:                 99513350 (99.5%)
+  Undetected:               486650
+    Ineffective (undetected): 135667 (0.1%)
+    Effective (undetected):   350983 (0.4%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=1, e=1, s=5
+
+Overall Fault Summary for d=1, e=1, s=5:
+  Detected:                 99586033 (99.6%)
+  Undetected:               413967
+    Ineffective (undetected): 44458 (0.0%)
+    Effective (undetected):   369509 (0.4%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=1, e=2, s=1
+
+Overall Fault Summary for d=1, e=2, s=1:
+  Detected:                 75487264 (75.5%)
+  Undetected:               24512736
+    Ineffective (undetected): 24512718 (24.5%)
+    Effective (undetected):   18 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=1, e=2, s=2
+
+Overall Fault Summary for d=1, e=2, s=2:
+  Detected:                 93903520 (93.9%)
+  Undetected:               6096480
+    Ineffective (undetected): 6096385 (6.1%)
+    Effective (undetected):   95 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=1, e=2, s=3
+
+Overall Fault Summary for d=1, e=2, s=3:
+  Detected:                 98445418 (98.4%)
+  Undetected:               1554582
+    Ineffective (undetected): 1554318 (1.6%)
+    Effective (undetected):   264 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=1, e=2, s=4
+
+Overall Fault Summary for d=1, e=2, s=4:
+  Detected:                 99573450 (99.6%)
+  Undetected:               426550
+    Ineffective (undetected): 425953 (0.4%)
+    Effective (undetected):   597 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=1, e=2, s=5
+
+Overall Fault Summary for d=1, e=2, s=5:
+  Detected:                 99869072 (99.9%)
+  Undetected:               130928
+    Ineffective (undetected): 129767 (0.1%)
+    Effective (undetected):   1161 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=1, e=3, s=1
+
+Overall Fault Summary for d=1, e=3, s=1:
+  Detected:                 69788964 (69.8%)
+  Undetected:               30211036
+    Ineffective (undetected): 30211036 (30.2%)
+    Effective (undetected):   0 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=1, e=3, s=2
+
+Overall Fault Summary for d=1, e=3, s=2:
+  Detected:                 90779205 (90.8%)
+  Undetected:               9220795
+    Ineffective (undetected): 9220795 (9.2%)
+    Effective (undetected):   0 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=1, e=3, s=3
+
+Overall Fault Summary for d=1, e=3, s=3:
+  Detected:                 97156244 (97.2%)
+  Undetected:               2843756
+    Ineffective (undetected): 2843756 (2.8%)
+    Effective (undetected):   0 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=1, e=3, s=4
+
+Overall Fault Summary for d=1, e=3, s=4:
+  Detected:                 99089976 (99.1%)
+  Undetected:               910024
+    Ineffective (undetected): 910024 (0.9%)
+    Effective (undetected):   0 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=1, e=3, s=5
+
+Overall Fault Summary for d=1, e=3, s=5:
+  Detected:                 99699214 (99.7%)
+  Undetected:               300786
+    Ineffective (undetected): 300786 (0.3%)
+    Effective (undetected):   0 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=2, e=1, s=1
+
+Overall Fault Summary for d=2, e=1, s=1:
+  Detected:                 78445172 (78.4%)
+  Undetected:               21554828
+    Ineffective (undetected): 21546734 (21.5%)
+    Effective (undetected):   8094 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=2, e=1, s=2
+
+Overall Fault Summary for d=2, e=1, s=2:
+  Detected:                 95137419 (95.1%)
+  Undetected:               4862581
+    Ineffective (undetected): 4673981 (4.7%)
+    Effective (undetected):   188600 (0.2%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=2, e=1, s=3
+
+Overall Fault Summary for d=2, e=1, s=3:
+  Detected:                 98671402 (98.7%)
+  Undetected:               1328598
+    Ineffective (undetected): 1031052 (1.0%)
+    Effective (undetected):   297546 (0.3%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=2, e=1, s=4
+
+Overall Fault Summary for d=2, e=1, s=4:
+  Detected:                 99412720 (99.4%)
+  Undetected:               587280
+    Ineffective (undetected): 236993 (0.2%)
+    Effective (undetected):   350287 (0.4%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=2, e=1, s=5
+
+Overall Fault Summary for d=2, e=1, s=5:
+  Detected:                 99568189 (99.6%)
+  Undetected:               431811
+    Ineffective (undetected): 62498 (0.1%)
+    Effective (undetected):   369313 (0.4%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=2, e=2, s=1
+
+Overall Fault Summary for d=2, e=2, s=1:
+  Detected:                 70824161 (70.8%)
+  Undetected:               29175839
+    Ineffective (undetected): 29175820 (29.2%)
+    Effective (undetected):   19 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=2, e=2, s=2
+
+Overall Fault Summary for d=2, e=2, s=2:
+  Detected:                 91444003 (91.4%)
+  Undetected:               8555997
+    Ineffective (undetected): 8555941 (8.6%)
+    Effective (undetected):   56 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=2, e=2, s=3
+
+Overall Fault Summary for d=2, e=2, s=3:
+  Detected:                 97475680 (97.5%)
+  Undetected:               2524320
+    Ineffective (undetected): 2524022 (2.5%)
+    Effective (undetected):   298 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=2, e=2, s=4
+
+Overall Fault Summary for d=2, e=2, s=4:
+  Detected:                 99244868 (99.2%)
+  Undetected:               755132
+    Ineffective (undetected): 754529 (0.8%)
+    Effective (undetected):   603 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=2, e=2, s=5
+
+Overall Fault Summary for d=2, e=2, s=5:
+  Detected:                 99771121 (99.8%)
+  Undetected:               228879
+    Ineffective (undetected): 227922 (0.2%)
+    Effective (undetected):   957 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=2, e=3, s=1
+
+Overall Fault Summary for d=2, e=3, s=1:
+  Detected:                 66481226 (66.5%)
+  Undetected:               33518774
+    Ineffective (undetected): 33518774 (33.5%)
+    Effective (undetected):   0 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=2, e=3, s=2
+
+Overall Fault Summary for d=2, e=3, s=2:
+  Detected:                 88706597 (88.7%)
+  Undetected:               11293403
+    Ineffective (undetected): 11293403 (11.3%)
+    Effective (undetected):   0 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=2, e=3, s=3
+
+Overall Fault Summary for d=2, e=3, s=3:
+  Detected:                 96182745 (96.2%)
+  Undetected:               3817255
+    Ineffective (undetected): 3817255 (3.8%)
+    Effective (undetected):   0 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=2, e=3, s=4
+
+Overall Fault Summary for d=2, e=3, s=4:
+  Detected:                 98694517 (98.7%)
+  Undetected:               1305483
+    Ineffective (undetected): 1305483 (1.3%)
+    Effective (undetected):   0 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------
+Analysis for d=2, e=3, s=5
+
+Overall Fault Summary for d=2, e=3, s=5:
+  Detected:                 99560713 (99.6%)
+  Undetected:               439287
+    Ineffective (undetected): 439287 (0.4%)
+    Effective (undetected):   0 (0.0%)
+  Total Number of Runs:     100000000
+
+----------------------------------------

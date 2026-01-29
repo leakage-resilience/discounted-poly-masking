@@ -1,0 +1,6 @@
+CRYPTO_LIB = poly_masked_sbox
+SRC += cycle_counter.c poly_masked_sbox.c random_bytes.c tables.c aes-independant.c
+CDEFS += -DPOLYMASKEDSBOX -DHWCRYPTO
+VPATH += :$(FIRMWAREPATH)/crypto/$(CRYPTO_LIB)
+EXTRAINCDIRS += $(FIRMWAREPATH)/crypto/$(CRYPTO_LIB)
+

@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.sage": "python",
+        "stm32f4xx.h": "c",
+        "math.h": "c",
+        "random": "c",
+        "atomic": "c"
+    }
+    
+}
