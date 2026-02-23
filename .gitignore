@@ -22,3 +22,4 @@ c_timing
 */_pycache_/*
 .DS_Store
 !requirements.txt
+.venv

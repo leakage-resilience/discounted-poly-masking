@@ -10,11 +10,11 @@
     }
   },
   "containerEnv": {
-    "VIRTUAL_ENV": "/workspace/discounted-poly-masking/.venv",
-    "PATH": "/workspace/discounted-poly-masking/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    "VIRTUAL_ENV": "/workspaces/discounted-poly-masking/.venv",
+    "PATH": "/workspaces/discounted-poly-masking/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   },
-  "postCreateCommand": "python3 -m venv /workspace/discounted-poly-masking/.venv --system-site-packages && /workspace/discounted-poly-masking/.venv/bin/pip install -r requirements.txt",
-  "postStartCommand": "sh -lc 'for n in /dev/bus/usb/*/*; do udevadm info -q property -n \"$n\" 2>/dev/null | grep -q \"^ID_VENDOR_ID=2b3e$\" && sudo chmod a+rw \"$n\"; done || true'",
+  "postCreateCommand": "python3 -m venv /workspaces/discounted-poly-masking/.venv --system-site-packages && /workspaces/discounted-poly-masking/.venv/bin/pip install -r requirements.txt",
+  "postStartCommand": "sh -lc 'lsusb -d 2b3e: | while read -r _ bus _ dev _; do dev=${dev%:}; sudo chmod a+rw \"/dev/bus/usb/$bus/$dev\"; done || true'",
   "customizations": {
     "vscode": {
       "extensions": [
