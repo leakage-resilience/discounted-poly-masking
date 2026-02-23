@@ -66,10 +66,8 @@ $(info CFLAGS: $(CFLAGS))
 #CFLAGS += -O2 -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -Wall
 #ASFLAGS = -mcpu=cortex-m4 -mthumb -O2 -mfloat-abi=hard -mfpu=fpv4-sp-d16
 
-ifeq ($(CRYPTO_TARGET),)
-  ${info No CRYPTO_TARGET passed - defaulting to TINYAES128C}
-  CRYPTO_TARGET = TINYAES128C
-endif
+# Default backend if not passed: TINYAES128C
+AES_BACKEND ?= TINYAES128C
 
 ${info Building for platform ${PLATFORM} with CRYPTO_TARGET=$(CRYPTO_TARGET)}
 

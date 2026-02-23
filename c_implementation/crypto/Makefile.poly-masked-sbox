@@ -1,6 +1,15 @@
 CRYPTO_LIB = poly_masked_sbox
 SRC += cycle_counter.c poly_masked_sbox.c random_bytes.c tables.c aes-independant.c
-CDEFS += -DPOLYMASKEDSBOX -DHWCRYPTO
+CDEFS += -DPOLYMASKEDSBOX
+
 VPATH += :$(FIRMWAREPATH)/crypto/$(CRYPTO_LIB)
 EXTRAINCDIRS += $(FIRMWAREPATH)/crypto/$(CRYPTO_LIB)
 
+ifeq ($(AES_BACKEND),HWCRYPTO)
+    CDEFS += -DHWCRYPTO
+else
+    CDEFS += -DTINYAES128C
+    SRC += aes.c
+    VPATH += :$(FIRMWAREPATH)/crypto/tiny-AES128-C
+    EXTRAINCDIRS += $(FIRMWAREPATH)/crypto/tiny-AES128-C
+endif

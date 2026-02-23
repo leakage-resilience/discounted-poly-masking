@@ -9,7 +9,7 @@ For the experiments in this paper we used the following devices:
 - [CW308T-STM32F](https://chipwhisperer.readthedocs.io/en/latest/chipwhisperer-target-cw308t/CW308T_STM32F/README.html) with the STM32F415RGT6 target
 
 While our codebase can be adapted to other targets and capture scopes with minimal changes, it was designed for and evaluated on these devices. If you adapt to different hardware, you might have to adapt the following:
-- We use the STM32F415RGT6 hardware AES to generate randombytes. If your target lacks hardware AES, replace the entropy source in `c_implementation/crypto/poly_masked_sbox/random_bytes.c`.
+- We use the STM32F415RGT6 hardware AES to generate randombytes. If you use a different target, the build process will default to the software implementation tinyAES128 as a randomness source. Currently, hal files for STM32F4, STM32F3, and STM32F0 are included in the project under `c_implementation/hal/`.
 - Adjustments to the scope and target need to be included in setup portions of `ChipWhisperer/ChipWhisperer_Evaluation.ipynb`.
 
 
@@ -29,7 +29,7 @@ While our codebase can be adapted to other targets and capture scopes with minim
     Finally, a common strategy is using a Linux virtual machine (e.g., via [Oracle VirtualBox](https://www.virtualbox.org/)) on a Windows or MacOS host and passing the ChipWhisperer USB device through to the VM. Inside the VM, install Docker and open the repository using VS Code with the Dev Containers extension.
 
 
-1. **Open the Project in VSCode**:
+2. **Open the Project in VSCode**:
 
       Open the directory in VS Code and select the pop-up: **Reopen in Container**.
 
