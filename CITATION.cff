@@ -1,0 +1,69 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the paper below."
+title: "discounted-poly-masking"
+type: software
+license: MIT
+repository-code: "https://github.com/leakage-resilience/discounted-poly-masking"
+url: "https://github.com/leakage-resilience/discounted-poly-masking"
+
+authors:
+  - family-names: Andresen
+    given-names: Jorge
+  - family-names: Arnold
+    given-names: Paula
+  - family-names: Berndt
+    given-names: Sebastian
+  - family-names: Eisenbarth
+    given-names: Thomas
+  - family-names: Faust
+    given-names: Sebastian
+  - family-names: Gourjon
+    given-names: Marc
+  - family-names: Landthaler
+    given-names: Eric
+  - family-names: Micheli
+    given-names: Elena
+  - family-names: Orlt
+    given-names: Maximilian
+  - family-names: Pauls
+    given-names: Pajam
+  - family-names: Wirschem
+    given-names: Kathrin
+  - family-names: Zhao
+    given-names: Liang
+
+preferred-citation:
+  type: article
+  title: "UP TO 50% OFF: Efficient Implementation of Polynomial Masking"
+  journal: "IACR Transactions on Cryptographic Hardware and Embedded Systems"
+  year: 2026
+  volume: 2026
+  start: 688
+  end: 731
+  doi: "10.46586/TCHES.V2026.I1.688-731"
+  url: "https://doi.org/10.46586/tches.v2026.i1.688-731"
+  authors:
+    - family-names: Andresen
+      given-names: Jorge
+    - family-names: Arnold
+      given-names: Paula
+    - family-names: Berndt
+      given-names: Sebastian
+    - family-names: Eisenbarth
+      given-names: Thomas
+    - family-names: Faust
+      given-names: Sebastian
+    - family-names: Gourjon
+      given-names: Marc
+    - family-names: Landthaler
+      given-names: Eric
+    - family-names: Micheli
+      given-names: Elena
+    - family-names: Orlt
+      given-names: Maximilian
+    - family-names: Pauls
+      given-names: Pajam
+    - family-names: Wirschem
+      given-names: Kathrin
+    - family-names: Zhao
+      given-names: Liang
