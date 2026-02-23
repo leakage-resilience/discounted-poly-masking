@@ -9,7 +9,7 @@ For the experiments in this paper we used the following devices:
 - [CW308T-STM32F](https://chipwhisperer.readthedocs.io/en/latest/chipwhisperer-target-cw308t/CW308T_STM32F/README.html) with the STM32F415RGT6 target
 
 While our codebase can be adapted to other targets and capture scopes with minimal changes, it was designed for and evaluated on these devices. If you adapt to different hardware, you might have to adapt the following:
-- We use the STM32F415RGT6 hardware AES to generate randombytes. If your target lacks hardware AES, replace the entropy source in `c_implementation/randombytes.c`.
+- We use the STM32F415RGT6 hardware AES to generate randombytes. If your target lacks hardware AES, replace the entropy source in `c_implementation/crypto/poly_masked_sbox/random_bytes.c`.
 - Adjustments to the scope and target need to be included in setup portions of `ChipWhisperer/ChipWhisperer_Evaluation.ipynb`.
 
 
@@ -39,7 +39,8 @@ While our codebase can be adapted to other targets and capture scopes with minim
 3. **Sage Setup Scripts**:
    Use the bash script 
    ```bash 
-   bash sage_scripts/generate_vars.sh
+   cd sage_scripts/
+   bash generate_vars.sh
    ``` 
    to set up necessary components like polynomial support points, Vandermonde matrices and lookup tables.
 
