@@ -10,21 +10,19 @@
     }
   },
   "containerEnv": {
-    "VIRTUAL_ENV": "/workspace/venv",
-    "PATH": "/workspace/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    "VIRTUAL_ENV": "/workspace/discounted-poly-masking/.venv",
+    "PATH": "/workspace/discounted-poly-masking/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   },
-  "postCreateCommand": "/usr/bin/python3 -m venv /workspace/venv --system-site-packages && pip install --python /workspace/venv/bin/python -r requirements.txt",
+  "postCreateCommand": "python3 -m venv /workspace/discounted-poly-masking/.venv --system-site-packages && /workspace/discounted-poly-masking/.venv/bin/pip install -r requirements.txt",
+  "postStartCommand": "sh -lc 'for n in /dev/bus/usb/*/*; do udevadm info -q property -n \"$n\" 2>/dev/null | grep -q \"^ID_VENDOR_ID=2b3e$\" && sudo chmod a+rw \"$n\"; done || true'",
   "customizations": {
     "vscode": {
       "extensions": [
-        "eamodio.gitlens",
         "ms-vscode.makefile-tools",
         "ms-azuretools.vscode-docker",
         "ms-vscode.cpptools-extension-pack",
         "ms-python.python",
-        "gabrielvukovic.jasmin-syntax-highlighting",
-        "ms-toolsai.jupyter",
-        "mechatroner.rainbow-csv"
+        "ms-toolsai.jupyter"
       ]
     }
   },
