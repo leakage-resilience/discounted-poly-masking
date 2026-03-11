@@ -10,10 +10,12 @@
     }
   },
   "containerEnv": {
-    "VIRTUAL_ENV": "/workspaces/discounted-poly-masking/.venv",
-    "PATH": "/workspaces/discounted-poly-masking/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    "VIRTUAL_ENV": "/home/vscode/.venvs/discounted-poly-masking"
   },
-  "postCreateCommand": "python3 -m venv /workspaces/discounted-poly-masking/.venv --system-site-packages && /workspaces/discounted-poly-masking/.venv/bin/pip install -r requirements.txt",
+  "remoteEnv": {
+    "PATH": "/home/vscode/.venvs/discounted-poly-masking/bin:${containerEnv:PATH}"
+  },
+  "postCreateCommand": "bash -lc 'python3 -m venv \"$VIRTUAL_ENV\" --system-site-packages && \"$VIRTUAL_ENV/bin/pip\" install -r \"${containerWorkspaceFolder}/requirements.txt\"'",
   "postStartCommand": "sh -lc 'lsusb -d 2b3e: | while read -r _ bus _ dev _; do dev=${dev%:}; sudo chmod a+rw \"/dev/bus/usb/$bus/$dev\"; done || true'",
   "customizations": {
     "vscode": {
@@ -23,7 +25,10 @@
         "ms-vscode.cpptools-extension-pack",
         "ms-python.python",
         "ms-toolsai.jupyter"
-      ]
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/home/vscode/.venvs/discounted-poly-masking/bin/python"
+      }
     }
   },
   "runArgs": [

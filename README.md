@@ -45,7 +45,7 @@ While our codebase can be adapted to other targets and capture scopes with minim
    to set up necessary components like polynomial support points, Vandermonde matrices and lookup tables.
 
 4. **Run and Evaluate ChipWhisperer Implementation**:
-   Select the (.venv) python kernel and run the `ChipWhisperer/ChipWhisperer_Evaluation.ipynb` Jupyter notebook from top to bottom and follow its instructions to obtain benchmarking and TVLA results. Results of the TVLA are saved to `ChipWhisperer/t-test/t-test-plots`, where the TVLA plots of both the LaOla multiplication with 5M traces, and the full Sbox with 1M traces from our paper can be found. 
+   Select the (discounted-poly-masking) python kernel and run the `ChipWhisperer/ChipWhisperer_Evaluation.ipynb` Jupyter notebook from top to bottom and follow its instructions to obtain benchmarking and TVLA results. Results of the TVLA are saved to `ChipWhisperer/t-test/t-test-plots`, where the TVLA plots of both the LaOla multiplication with 5M traces, and the full Sbox with 1M traces from our paper can be found. 
 
 5. **Test Implementation Correctness in QEMU**:
     We provide a QEMU implementation in addition to our microcontroller implementation. The correctness of our implementation is tested by comparing masked computations against an unmasked reference function for parameters *d*={1,...,3}, *e*={0,...,3}, *k*=1 with Frobenius endomorphism enabled/disabled and our new zero-encodings, as well as, the zero-encodings from https://eprint.iacr.org/2023/1143.
